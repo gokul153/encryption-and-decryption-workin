@@ -8,182 +8,6 @@ import 'package:aes_crypt_null_safe/aes_crypt_null_safe.dart';
 //import 'package:google_fonts/google_fonts.dart';
 import 'package:path_provider/path_provider.dart';
 
-/*class EncryptionScreen extends StatefulWidget {
-  const EncryptionScreen({Key? key}) : super(key: key);
-
-  @override
-  _IdentityPageState createState() => _IdentityPageState();
-}
-
-class _IdentityPageState extends State<EncryptionScreen> {
-  String? _path;
-  String? pat;
-  String? encFilepath;
-  String? filename;
-
-  Future<File> saveFilePermanently(PlatformFile file) async {
-    final appStorage = await getExternalStorageDirectory();
-    final newFile = File('${appStorage!.path}/${file.name}');
-    return File(file.path!).copy(newFile.path);
-  }
-
-  bool _validate = false;
-  @override
-  void dispose() {
-    _textController.dispose();
-    super.dispose();
-  }
-
-  Future<File> saveFile(String file) async {
-    Directory? appStorage = await getExternalStorageDirectory();
-    var fileName = (file.split('/').last);
-    final newfile = ('${appStorage!.path}/$fileName');
-
-    return File(file).copy(newfile);
-  }
-
-  Future<File> saveFile1(String file) async {
-    const appStorage = ('/storage/emulated/0/Download');
-    var fileName = (file.split('/').last);
-    final newfile = ('$appStorage/$fileName');
-
-    return (File(file).copy(newfile));
-  }
-
-  final _textController = TextEditingController();
-  @override
-  Widget build(BuildContext context) {
-    //requestStoragePermission();
-    return Scaffold(
-      backgroundColor: const Color(0xFF1D1D35),
-      resizeToAvoidBottomInset: false,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 0),
-              child: TextField(
-                controller: _textController,
-                // style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                    errorText: _validate ? 'please enter password' : null,
-                    hintText: 'Enter your pin or password',
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: const OutlineInputBorder(
-                        borderSide: BorderSide(width: 4),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(20),
-                        )),
-                    suffixIcon: IconButton(
-                        onPressed: () {
-                          _textController.clear();
-                        },
-                        icon: const Icon(Icons.clear))),
-                obscureText: true,
-                maxLength: 20,
-              ),
-            ),
-            ElevatedButton(
-                onPressed: () async {
-                  PlatformFile? _platformFile;
-                  final file = await FilePicker.platform.pickFiles();
-
-                  if (file != null) {
-                    //String? selectedDirectory =
-                    // (await FilePicker.platform.getDirectoryPath());
-                    _platformFile = file.files.first;
-
-                    pat = _platformFile.name;
-                    _path = _platformFile.path;
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        backgroundColor: const Color.fromARGB(255, 16, 240, 23),
-                        content: Text(' File Selected\n File path:$_path')));
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        backgroundColor: Color.fromARGB(255, 224, 5, 5),
-                        content: Text(' File not Selected.Abort')));
-                    print("abort");
-                  }
-                },
-                child: const Text('add file',
-                    style: TextStyle(fontSize: 22, color: Colors.white)),
-                style: ElevatedButton.styleFrom(
-                  primary: Color(0xffee122a),
-                  shape: const StadiumBorder(),
-                )),
-            ElevatedButton(
-                child: const Text('Encrypt',
-                    style: TextStyle(fontSize: 22, color: Colors.white)),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.green,
-                  shape: const StadiumBorder(),
-                ),
-                onPressed: () async {
-                  setState(() {
-                    _textController.text.isEmpty
-                        ? _validate = true
-                        : _validate = false;
-                  });
-                  if (_path != null && _textController.text != null) {
-                    print(_path);
-
-                    // Creates an instance of AesCrypt class.
-                    AesCrypt crypt = AesCrypt();
-
-                    // Sets encryption password.
-                    // Optionally you can specify the password when creating an instance
-                    // of AesCrypt class like:
-                    crypt.aesSetMode(AesMode.cbc);
-                    crypt.setPassword(_textController.text);
-
-                    // Sets overwrite mode.
-                    // It's optional. By default the mode is 'AesCryptOwMode.warn'.
-                    crypt.setOverwriteMode(AesCryptOwMode.rename);
-
-                    try {
-                      // Encrypts  file and save encrypted file to a file with
-                      // '.aes' extension added. In this case it will be '$_path.aes'.
-                      // It returns a path to encrypted file.
-
-                      encFilepath = crypt.encryptFileSync(_path!);
-
-                      print('The encryption has been completed successfully.');
-                      print('Encrypted file: $encFilepath');
-                      final newFile = await saveFile(encFilepath!);
-                      //final newfile1 = await saveFile1(encFilepath!);
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          backgroundColor: Color.fromARGB(255, 16, 240, 23),
-                          content: Text(' File Encryption Success')));
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          backgroundColor: Color.fromARGB(255, 16, 240, 23),
-                          content: Text(' File Saved')));
-                      print(newFile);
-                      // print(newfile1);
-                    } on AesCryptException catch (e) {
-                      // It goes here if overwrite mode set as 'AesCryptFnMode.warn'
-                      // and encrypted file already exists.
-                      if (e.type == AesCryptExceptionType.destFileExists) {
-                        print(
-                            'The encryption has been completed unsuccessfully.');
-                        print(e.message);
-                      }
-                    }
-                  }
-                  if (_path == null) {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        backgroundColor: Colors.red,
-                        content: Text('Please select file')));
-                  }
-                }),
-          ],
-        ),
-      ),
-    );
-  }
-}*/
-
 class EncryptionPage extends StatefulWidget {
   const EncryptionPage({Key? key}) : super(key: key);
 
@@ -235,7 +59,7 @@ class _EncryptionPageState extends State<EncryptionPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text('Encryption',
+          Text('ENCRYPTION',
               style: TextStyle(
                 fontSize: MediaQuery.of(context).size.height / 25,
                 fontWeight: FontWeight.bold,
@@ -272,7 +96,7 @@ class _EncryptionPageState extends State<EncryptionPage> {
                     )));
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    backgroundColor: Color(0xffee122a),
+                    backgroundColor: Color.fromARGB(255, 30, 189, 253),
                     content: Text(
                       ' File not Selected.Abort',
                       textAlign: TextAlign.center,
@@ -281,7 +105,7 @@ class _EncryptionPageState extends State<EncryptionPage> {
               }
             },
             style: ElevatedButton.styleFrom(
-              primary: const Color(0xffee122a),
+              primary: Color.fromARGB(255, 30, 189, 253),
               shape: const StadiumBorder(),
             ),
             child: Text(
@@ -309,7 +133,7 @@ class _EncryptionPageState extends State<EncryptionPage> {
           margin: const EdgeInsets.only(bottom: 20),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              primary: const Color(0xffee122a),
+              primary: Color.fromARGB(255, 30, 189, 253),
               shape: const StadiumBorder(),
             ),
             onPressed: () async {
@@ -380,7 +204,7 @@ class _EncryptionPageState extends State<EncryptionPage> {
               }
               if (_path == null) {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    backgroundColor: Color(0xffee122a),
+                    backgroundColor: Color.fromARGB(255, 30, 189, 253),
                     content: Text(
                       'Please select file',
                       textAlign: TextAlign.center,
@@ -418,10 +242,12 @@ class _EncryptionPageState extends State<EncryptionPage> {
           filled: true,
           errorText: _validate ? 'please enter password' : null,
           focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xffee122a), width: 2.0),
+            borderSide: BorderSide(
+                color: Color.fromARGB(255, 30, 189, 253), width: 2.0),
           ),
           enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: Color(0xffee122a), width: 1.5)),
+              borderSide: BorderSide(
+                  color: Color.fromARGB(255, 30, 189, 253), width: 1.5)),
           hintText: "Enter password",
         ),
         obscureText: true,
@@ -481,7 +307,7 @@ class _EncryptionPageState extends State<EncryptionPage> {
               width: MediaQuery.of(context).size.width,
               child: Container(
                 decoration: const BoxDecoration(
-                  color: Color(0xffee122a),
+                  color: Color.fromARGB(255, 30, 189, 253),
                   borderRadius: BorderRadius.only(
                       // bottomLeft: Radius.circular(70),
                       // bottomRight: Radius.circular(70),

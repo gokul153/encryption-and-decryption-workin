@@ -7,192 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:aes_crypt_null_safe/aes_crypt_null_safe.dart';
 //import 'package:permission_handler/permission_handler.dart';
 import 'package:path_provider/path_provider.dart';
-//import 'package:path/path.dart';
-
-/*class DecryptionScreen extends StatefulWidget {
-  const DecryptionScreen({Key? key}) : super(key: key);
-
-  @override
-  _IdentityPageState createState() => _IdentityPageState();
-}
-
-class _IdentityPageState extends State<DecryptionScreen> {
-  int count = 0;
-  String? _path;
-  String? _pathpic;
-  String? pat;
-  String? decFilepath;
-  String? filename;
-  String? _tempfilename;
-
-  Future<File> saveFilePermanently(PlatformFile file) async {
-    final appStorage = await getExternalStorageDirectory();
-    final newFile = File('${appStorage!.path}/${file.name}');
-    return File(file.path!).copy(newFile.path);
-  }
-
-  Future<File> saveFile(String file) async {
-    Directory? appStorage = await getExternalStorageDirectory();
-    var fileName = (file.split('/').last);
-    final newfile = ('${appStorage!.path}/$fileName');
-
-    return File(file).copySync(newfile);
-  }
-
-  /* Future<File> saveFile1(String file) async {
-    const appStorage = ('/storage/emulated/0/Download');
-    var fileName = (file.split('/').last);
-    final newfile = ('$appStorage/$fileName');
-
-    return (File(file).copy(newfile));
-  }
-*/
-  final _textController = TextEditingController();
-  final _textController1 = TextEditingController();
-  bool _validate = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: const Color(0xFF1D1D35),
-        body: Center(
-          child: SingleChildScrollView(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 45, vertical: 10),
-                    child: TextField(
-                      controller: _textController,
-                      decoration: InputDecoration(
-                          errorText: _validate ? 'please enter password' : null,
-                          hintText: 'Enter your pin or password',
-                          filled: true,
-                          fillColor: Colors.white,
-                          border: const OutlineInputBorder(
-                              borderSide: BorderSide(width: 4),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(20),
-                              )),
-                          suffixIcon: IconButton(
-                              onPressed: () {
-                                _textController.clear();
-                              },
-                              icon: const Icon(Icons.clear))),
-                      obscureText: true,
-                      maxLength: 20,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 45),
-                    child: TextField(
-                      controller: _textController1,
-                      decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Colors.white,
-                          hintText: 'filename with extension',
-                          border: const OutlineInputBorder(
-                              borderSide: BorderSide(width: 4),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(20),
-                              )),
-                          suffixIcon: IconButton(
-                              onPressed: () {
-                                _textController1.clear();
-                              },
-                              icon: const Icon(Icons.clear))),
-                      obscureText: false,
-                      maxLength: 50,
-                    ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () async {
-                      FilePickerResult? result =
-                          await FilePicker.platform.pickFiles();
-
-                      if (result != null) {
-                        PlatformFile file = result.files.first;
-                        pat = file.name;
-                        _pathpic = file.path;
-                        print(_pathpic);
-                        count = 1;
-                      } else {
-                        print("abort");
-                      }
-                      // encFilepath = _path;
-                      //downlaodFile();
-                    },
-                    child:
-                        const Text('Add File', style: TextStyle(fontSize: 22)),
-                    style: ElevatedButton.styleFrom(
-                      shape: const StadiumBorder(),
-                    ),
-                  ),
-                  ElevatedButton(
-                    child:
-                        const Text('Decrypt', style: TextStyle(fontSize: 22)),
-                    style: ElevatedButton.styleFrom(
-                      shape: const StadiumBorder(),
-                    ),
-                    onPressed: () async {
-                      setState(() {
-                        _textController.text.isEmpty
-                            ? _validate = true
-                            : _validate = false;
-                      });
-                      if (_textController.text != null &&
-                          (_textController1.text != null || _pathpic != null)) {
-                        _tempfilename = _textController1.text;
-                        if (count == 0) {
-                          var dir = getExternalStorageDirectory();
-                          _path = ('$dir/$_tempfilename.aes');
-                        } else if (count == 1) {
-                          _path = _pathpic;
-                        }
-
-                        // Creates an instance of AesCrypt class.
-                        AesCrypt crypt = AesCrypt();
-                        crypt.aesSetMode(AesMode.cbc);
-                        crypt.setOverwriteMode(AesCryptOwMode.rename);
-                        crypt.setPassword(_textController.text);
-
-                        try {
-                          decFilepath = crypt.decryptFileSync(_path!);
-                          print(
-                              'The decryption has been completed successfully.');
-                          print('Decrypted file 1: $decFilepath');
-                          if (count == 1) {
-                            // final newfile1 = await saveFile1(decFilepath!);
-                            final newFile = await saveFile(decFilepath!);
-
-                            print(newFile);
-                            // print(newfile1);
-                          } else {
-                            print('File content: ' + File(decFilepath!).path);
-                            final newfile = await saveFile(decFilepath!);
-                            print(newfile);
-                          }
-                        } on AesCryptException catch (e) {
-                          if (e.type == AesCryptExceptionType.destFileExists) {
-                            print(
-                                'The decryption has been completed unsuccessfully.');
-                            print(e.message);
-                          }
-                        }
-                      }
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ));
-  }
-}*/
 
 class decryptionPage extends StatefulWidget {
   const decryptionPage({Key? key}) : super(key: key);
@@ -241,7 +55,7 @@ class _decryptionPageState extends State<decryptionPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text('Decryption',
+          Text('DECRYPTION',
               style: TextStyle(
                 fontSize: MediaQuery.of(context).size.height / 25,
                 fontWeight: FontWeight.bold,
@@ -276,10 +90,12 @@ class _decryptionPageState extends State<decryptionPage> {
           //   filled: true,
           errorText: _validate ? 'please enter password' : null,
           focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xffee122a), width: 2.0),
+            borderSide: BorderSide(
+                color: Color.fromARGB(255, 30, 189, 253), width: 2.0),
           ),
           enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: Color(0xffee122a), width: 1.5)),
+              borderSide: BorderSide(
+                  color: Color.fromARGB(255, 30, 189, 253), width: 1.5)),
           //  hintText: "Enter password",
         ),
         obscureText: true,
@@ -296,10 +112,12 @@ class _decryptionPageState extends State<decryptionPage> {
         decoration: InputDecoration(
           errorText: _validate ? 'Please enter file name' : null,
           focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xffee122a), width: 2.0),
+            borderSide: BorderSide(
+                color: Color.fromARGB(255, 30, 189, 253), width: 2.0),
           ),
           enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: Color(0xffee122a), width: 1.5)),
+              borderSide: BorderSide(
+                  color: Color.fromARGB(255, 30, 189, 253), width: 1.5)),
           hintText: "Enter File name",
         ),
       ),
@@ -329,13 +147,13 @@ class _decryptionPageState extends State<decryptionPage> {
                     content: Text(' File Selected')));
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    backgroundColor: Color(0xffee122a),
+                    backgroundColor: Color.fromARGB(255, 30, 189, 253),
                     content: Text(' File not Selected.Abort')));
                 print("abort");
               }
             },
             style: ElevatedButton.styleFrom(
-              primary: const Color(0xffee122a),
+              primary: Color.fromARGB(255, 30, 189, 253),
               shape: const StadiumBorder(),
             ),
             child: Text(
@@ -362,7 +180,7 @@ class _decryptionPageState extends State<decryptionPage> {
           margin: const EdgeInsets.only(bottom: 20),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              primary: const Color(0xffee122a),
+              primary: Color.fromARGB(255, 30, 189, 253),
               shape: const StadiumBorder(),
             ),
             onPressed: () async {
@@ -433,7 +251,7 @@ class _decryptionPageState extends State<decryptionPage> {
                 } catch (e) {
                   print('The decryption has been completed unsuccessfully.');
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      backgroundColor: Color(0xffee122a),
+                      backgroundColor: Color.fromARGB(255, 30, 189, 253),
                       content: Text(
                         ' Decryption unsuccessfull! please enter valid password',
                         textAlign: TextAlign.center,
@@ -445,7 +263,7 @@ class _decryptionPageState extends State<decryptionPage> {
               }
               if (_pathpic == null) {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    backgroundColor: Color(0xffee122a),
+                    backgroundColor: Color.fromARGB(255, 30, 189, 253),
                     content: Text(
                       'Please select file',
                       textAlign: TextAlign.center,
@@ -530,7 +348,7 @@ class _decryptionPageState extends State<decryptionPage> {
                 width: MediaQuery.of(context).size.width,
                 child: Container(
                   decoration: const BoxDecoration(
-                      color: Color(0xffee122a),
+                      color: Color.fromARGB(255, 30, 189, 253),
                       borderRadius: BorderRadius.only(
                           // bottomLeft: Radius.circular(70),
                           //bottomRight: Radius.circular(70),

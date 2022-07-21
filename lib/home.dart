@@ -110,13 +110,13 @@ class _Home_screenState extends State<Home_screen> {
             title: Padding(
               padding: const EdgeInsets.all(60),
               child: const Text(
-                "Krypt it!",
+                "KRYPT IT!",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontSize: 50, fontFamily: 'Bold', color: Colors.white),
+                    fontSize: 25, fontFamily: 'Bold', color: Colors.white),
               ),
             ),
-            backgroundColor: Color(0xffee122a),
+            backgroundColor: Color.fromARGB(255, 30, 189, 253),
           ),
           // body: Body_shape(),
           body: SafeArea(
@@ -128,10 +128,10 @@ class _Home_screenState extends State<Home_screen> {
                 children: [
                   // MainAxisAlignment:   MainAxisAlignment.center,
                   const Text(
-                    "Encryption Software",
+                    "",
                     textAlign: TextAlign.left,
                     style: TextStyle(
-                      color: Colors.red,
+                      color: Color.fromARGB(255, 30, 189, 253),
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
                     ),
@@ -183,41 +183,62 @@ class _Home_screenState extends State<Home_screen> {
                         //),
                         // ),
                         Center(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              print("Encrypt only");
-                              Navigator.of(context).push(
-                                MaterialPageRoute(builder: (ctx) {
-                                  return EncryptionPage();
-                                }),
-                              );
-                            },
-                            child: Text('Open Encryption Window'),
+                          child: SizedBox(
+                            width: 200,
+                            height: 50,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                print("Encrypt only");
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(builder: (ctx) {
+                                    return EncryptionPage();
+                                  }),
+                                );
+                              },
+                              child: Text('Encrypt File'),
+                            ),
                           ),
                         )
                       ],
                     ),
                   ),
-                  ElevatedButton(
+                  SizedBox(
+                    width: 200,
+                    height: 50,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          print("Decryption is intiated");
+                          Navigator.of(context).push(
+                            MaterialPageRoute(builder: (ctx) {
+                              return decryptionPage();
+                            }),
+                          );
+                        },
+                        child: Text("Decrypt file ")),
+                  ),
+                  SizedBox(
+                    width: 200,
+                    height: 50,
+                    child: ElevatedButton(
                       onPressed: () {
-                        print("Decryption is intiated");
+                        // print("Text Encryption is started");
                         Navigator.of(context).push(
                           MaterialPageRoute(builder: (ctx) {
-                            return decryptionPage();
+                            return txtencrypt();
                           }),
                         );
                       },
-                      child: Text("Decrypt Window ")),
-                  ElevatedButton(
-                    onPressed: () {
-                      // print("Text Encryption is started");
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (ctx) {
-                          return txtencrypt();
-                        }),
-                      );
-                    },
-                    child: Text("Message Encryption"),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                            Color.fromARGB(255, 255, 255, 255)),
+                      ),
+                      child: Text(
+                        "Message Encryption",
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 30, 189, 253),
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
