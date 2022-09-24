@@ -11,6 +11,7 @@ import 'package:ui/Screen_Encryption.dart';
 import 'package:ui/message_encrpt.dart';
 import "package:file_cryptor/file_cryptor.dart";
 import 'package:encrypt/encrypt.dart' as enc;
+import 'package:flutter/services.dart';
 
 //simport 'package:packageandnavigation/message_encrpt.dart'
 class Home_screen extends StatefulWidget {
@@ -21,6 +22,34 @@ class Home_screen extends StatefulWidget {
 }
 
 class _Home_screenState extends State<Home_screen> {
+  Future<bool> _onWillPop() async {
+    return (await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: new Text('Are you sure?'),
+            content: new Text('Do you want to exit an App'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                }, //<-- SEE HERE
+                child: new Text('No'),
+              ),
+              TextButton(
+                onPressed: () {
+                 // Navigator.of(context).pop(true);
+                  SystemNavigator.pop();
+                  //Navigator.of(context).pop(true);
+                },
+                // <-- SEE HERE
+                child: new Text('Yes'),
+              ),
+            ],
+          ),
+        )) ??
+        false;
+  }
+
   bool loading = false;
   bool _isgranted = false;
   String keyvalues = "12345678910112587413698741236987";
@@ -104,132 +133,157 @@ class _Home_screenState extends State<Home_screen> {
   @override
   Widget build(BuildContext context) {
     requestStoragePermission();
-    return SafeArea(
-      child: Scaffold(
-          appBar: AppBar(
-            title: Padding(
-              padding: const EdgeInsets.all(60),
-              child: const Text(
-                "Krypt it!",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 50, fontFamily: 'Bold', color: Colors.white),
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: SafeArea(
+        child: Scaffold(
+            appBar: AppBar(
+              title: Padding(
+                padding: const EdgeInsets.all(60),
+                child: const Text(
+                  "KRYPT IT!",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 25, fontFamily: 'Bold', color: Colors.white),
+                ),
               ),
+              backgroundColor: Color.fromARGB(255, 30, 189, 253),
             ),
-            backgroundColor: Color(0xffee122a),
-          ),
-          // body: Body_shape(),
-          body: SafeArea(
-            child: Container(
-              // width: double.maxFinite,
-              //height: double.minPositive,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  // MainAxisAlignment:   MainAxisAlignment.center,
-                  const Text(
-                    "Encryption Software",
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      color: Colors.red,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
+            // body: Body_shape(),
+            body: SafeArea(
+              child: Container(
+                // width: double.maxFinite,
+                //height: double.minPositive,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    // MainAxisAlignment:   MainAxisAlignment.center,
+                    const Text(
+                      "",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 30, 189, 253),
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  Center(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        //  Padding(
-                        //     padding: const EdgeInsets.all(8.0),
-                        //     child: Container(
-                        //       alignment: Alignment.center,
-                        //       child: const Text(
-                        //         "Select this icon to attach file",
-                        //         textAlign: TextAlign.justify,
-                        //       ),
-                        //     ),
-                        //   ),
-                        //Icon(
-                        // Icons.file_open_outlined,
-                        //  size: 36.0,
-                        //   //  print("get file");
-                        // ),
-                        // IconButton(
-                        //   onPressed: () {
-                        //     print("select file");
-                        //     print("Downloading Requested");
-                        //     _pickFile();
-                        //     //   Download_to();
-                        //   },
-                        //   icon: Icon(
-                        //     Icons.file_open_rounded,
-                        //     size: 36.0,
-                        //   ),
-                        // )
-                      ],
+                    Center(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          //  Padding(
+                          //     padding: const EdgeInsets.all(8.0),
+                          //     child: Container(
+                          //       alignment: Alignment.center,
+                          //       child: const Text(
+                          //         "Select this icon to attach file",
+                          //         textAlign: TextAlign.justify,
+                          //       ),
+                          //     ),
+                          //   ),
+                          //Icon(
+                          // Icons.file_open_outlined,
+                          //  size: 36.0,
+                          //   //  print("get file");
+                          // ),
+                          // IconButton(
+                          //   onPressed: () {
+                          //     print("select file");
+                          //     print("Downloading Requested");
+                          //     _pickFile();
+                          //     //   Download_to();
+                          //   },
+                          //   icon: Icon(
+                          //     Icons.file_open_rounded,
+                          //     size: 36.0,
+                          //   ),
+                          // )
+                        ],
+                      ),
                     ),
-                  ),
-                  Center(
-                    child: Column(
-                      children: [
-                        //r     Padding(
-                        //  padding: const EdgeInsets.all(8.0),
-                        // child: ElevatedButton(
-                        //   onPressed: () {
-                        //    print("Udergo Compression and encryption");
-                        //   },
-                        //  child: Text('Compress & Enrypt'),
-                        //),
-                        // ),
-                        Center(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              print("Encrypt only");
-                              Navigator.of(context).push(
-                                MaterialPageRoute(builder: (ctx) {
-                                  return EncryptionPage();
-                                }),
-                              );
-                            },
-                            child: Text('Open Encryption Window'),
+                    Center(
+                      child: Column(
+                        children: [
+                          //r     Padding(
+                          //  padding: const EdgeInsets.all(8.0),
+                          // child: ElevatedButton(
+                          //   onPressed: () {
+                          //    print("Udergo Compression and encryption");
+                          //   },
+                          //  child: Text('Compress & Enrypt'),
+                          //),
+                          // ),
+                          Center(
+                            child: SizedBox(
+                              width: 200,
+                              height: 50,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  print("Encrypt only");
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(builder: (ctx) {
+                                      return EncryptionPage();
+                                    }),
+                                  );
+                                },
+                                child: Text('Encrypt File'),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      width: 200,
+                      height: 50,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            print("Decryption is intiated");
+                            Navigator.of(context).push(
+                              MaterialPageRoute(builder: (ctx) {
+                                return decryptionPage();
+                              }),
+                            );
+                          },
+                          child: Text("Decrypt file ")),
+                    ),
+                    SizedBox(
+                      width: 200,
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          chance = 0;
+                          // print("Text Encryption is started");
+                          Navigator.of(context).push(
+                            MaterialPageRoute(builder: (ctx) {
+                              return txtencrypt();
+                            }),
+                          );
+                        },
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              Color.fromARGB(255, 255, 255, 255)),
+                        ),
+                        child: Text(
+                          "Message Encryption",
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 30, 189, 253),
                           ),
-                        )
-                      ],
+                        ),
+                      ),
                     ),
-                  ),
-                  ElevatedButton(
-                      onPressed: () {
-                        print("Decryption is intiated");
-                        Navigator.of(context).push(
-                          MaterialPageRoute(builder: (ctx) {
-                            return decryptionPage();
-                          }),
-                        );
-                      },
-                      child: Text("Decrypt Window ")),
-                  ElevatedButton(
-                    onPressed: () {
-                      // print("Text Encryption is started");
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (ctx) {
-                          return txtencrypt();
-                        }),
-                      );
-                    },
-                    child: Text("Message Encryption"),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          )),
+            )),
+      ),
     );
   }
 }
 
 //class EncryptData {
-class MyEncrypt {
+/*class MyEncrypt {
   static final mykey = enc.Key.fromUtf8('brotherhood');
   static final myIv = enc.IV.fromUtf8('gokuldas');
   static final MyEncrypter = enc.Encrypter(enc.AES(mykey));
-}
+}*/

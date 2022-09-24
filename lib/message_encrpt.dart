@@ -1,10 +1,15 @@
 import 'dart:convert';
 
+import 'package:clipboard/clipboard.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:ui/displist_message.dart';
 import 'package:ui/home.dart';
+
+String gencrypt = "";
+int chance = 0;
 
 class txtencrypt extends StatefulWidget {
   txtencrypt({Key? key}) : super(key: key);
@@ -55,8 +60,12 @@ class _txtencryptState extends State<txtencrypt> {
     }
   }
 
-  void decrypt_mesage(int key1) async {
+  void decrypt_mesage(int key1, String encrypttext) async {
     //decryptedtext = "";
+    //chance++;
+   // print("chance is");
+    //print(chance);
+    encryptedtext = encrypttext;
     for (i = 0; i < encryptedtext.length; i++) {
       int dvalue = encryptedtext.codeUnitAt(i);
       ciphervalue = dvalue - key;
@@ -86,7 +95,8 @@ class _txtencryptState extends State<txtencrypt> {
                 controller: _textcontrol,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Enter the message to be encrypted in alphabets ',
+                  hintText:
+                      'Enter the message to be encrypted/decrypted in alphabets ',
                 ),
               ),
               Column(
@@ -102,6 +112,7 @@ class _txtencryptState extends State<txtencrypt> {
               TextField(
                 controller: _keycontrol,
                 keyboardType: TextInputType.number,
+                obscureText: true,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Enter the key to encrpt',
@@ -109,58 +120,129 @@ class _txtencryptState extends State<txtencrypt> {
               ),
               Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  children: [
-                    ElevatedButton.icon(
-                      onPressed: () {
-                        data = _textcontrol.text;
-                        var keyc = (int.parse(_keycontrol.text));
-                        try {
-                          setState(() {
-                            String checkket = _keycontrol.text;
-                            // print(data);
-                            encryptedtext = " ";
-                            print("entered key is");
-                            print(keyc);
-                            // key = int.parse(keyc);
-                            //print(key);
-                            // if (keyc != null) {
-                            key = keyc;
-                            // ignore: unnecessary_null_comparison
-                            if (checkket == "") {
-                              print("enter vallid key");
-                              key = 2;
-                              print("default key is used");
-                              encrypt_message(key);
-                            } else {
-                              encrypt_message(key);
-                            }
-                          });
-                        } catch (exception) {
-                          print("enter proper keyy");
-                        }
-                      },
-                      icon: Icon(Icons.enhanced_encryption_rounded),
-                      label: Text(
-                        "Encrypt no key",
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: ElevatedButton.icon(
+                child: Center(
+                  child: Row(
+                    children: [
+                      ElevatedButton.icon(
                         onPressed: () {
-                          decryptedtext = "";
-                          // key = _keycontrol.text;
-                          //   data = _keycontrol.text;
-                          setState(() {
-                            decrypt_mesage(key);
-                          });
+                          data = _textcontrol.text;
+                          // var keyc = (int.parse(_keycontrol.text));
+                       //   if(chance>100)
+                      //    {
+
+                       //   }
+                          try {
+                            setState(() {
+                              var keyc = (int.parse(_keycontrol.text));
+                              String checkket = _keycontrol.text;
+                              // print(data);
+                              encryptedtext = " ";
+                              print("entered key is");
+                              print(keyc);
+                              // key = int.parse(keyc);
+                              //print(key);
+                              // if (keyc != null) {
+                              key = keyc;
+                              // ignore: unnecessary_null_comparison
+                              if (checkket == "") {
+                                print("enter vallid key");
+                                key = 2;
+                                print("default key is used");
+                                encrypt_message(key);
+                                gencrypt = encryptedtext;
+                              } else {
+                                if (checkket.length <= 2) {
+                                  print("enter valid key1");
+                                  const snackBar = SnackBar(
+                                    content: Text('Enter valid key >100'),
+                                  );
+
+// Find the ScaffoldMessenger in the widget tree
+// and use it to show a SnackBar.R
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                } else {
+                                  encrypt_message(key);
+                                  setState(() {
+                                    gencrypt = encryptedtext;
+                                  });
+                                }
+                              }
+                            });
+                          } catch (exception) {
+                            print("enter proper keyy");
+                            print("enter a key greater than 100");
+                            const snackBar = SnackBar(
+                              content: Text('Enter valid key in numbers'),
+                            );
+
+// Find the ScaffoldMessenger in the widget tree
+// and use it to show a SnackBar.R
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          }
                         },
                         icon: Icon(Icons.enhanced_encryption_rounded),
-                        label: Text("Decrypt"),
+                        label: Text(
+                          "Encrypt",
+                        ),
                       ),
-                    ),
-                  ],
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                             chance++;
+                              print("chance is");
+                              print(chance);
+                             decryptedtext = "";
+                            if(chance>100)
+                            {
+                              Navigator.pop(context, 'Chance Exeeded go back');
+                            }
+                            //data = _textcontrol.text;
+                            // var keyc = (int.parse(_keycontrol.text));
+                            //   data = _keycontrol.text;
+                            try {
+                              setState(() {
+                                data = _textcontrol.text;
+                                var keyc = (int.parse(_keycontrol.text));
+                                key = keyc;
+                                if (keyc < 100) {
+                                  print("enter a key greater than 100");
+                                  const snackBar = SnackBar(
+                                    content: Text('Enter valid key >100'),
+                                  );
+
+// Find the ScaffoldMessenger in the widget tree
+// and use it to show a SnackBar.R
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                }
+                                String encrptmessage = _textcontrol.text;
+                                decrypt_mesage(keyc, encrptmessage);
+                              });
+                            } catch (exeption) {
+                              print("enter proper key");
+                              print("enter a key greater than 100");
+                              const snackBar = SnackBar(
+                                content: Text('Enter valid key in numbers'),
+                              );
+
+// Find the ScaffoldMessenger in the widget tree
+// and use it to show a SnackBar.R
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            }
+                          },
+                          icon: Icon(Icons.enhanced_encryption_rounded),
+                          label: Text("Decrypt"),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
 
@@ -169,66 +251,96 @@ class _txtencryptState extends State<txtencrypt> {
                 "encypted message",
                 style: TextStyle(fontSize: 20),
               ),
-              Container(
-                width: 240.0,
-                height: 35.0,
-                decoration: BoxDecoration(
-                  // borderRadius: BorderRadius.circular(24.0),
-                  border: Border.symmetric(),
-                  color: const Color(0xff2c2c2c),
-                ),
-                child: SizedBox(
-                  child: Text(
-                    encryptedtext,
-                    style: TextStyle(
-                      fontFamily: 'Arial',
-                      fontSize: 20,
-                      color: Colors.white,
-                      height: 2,
+              Row(
+                children: [
+                  Container(
+                    width: 240.0,
+                    height: 35.0,
+                    decoration: BoxDecoration(
+                      // borderRadius: BorderRadius.circular(24.0),
+                      border: Border.symmetric(),
+                      color: const Color(0xff2c2c2c),
+                    ),
+                    child: SizedBox(
+                      child: Text(
+                        encryptedtext,
+                        style: TextStyle(
+                          fontFamily: 'Arial',
+                          fontSize: 20,
+                          color: Colors.white,
+                          height: 2,
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  IconButton(
+                      onPressed: () {
+                        FlutterClipboard.copy(encryptedtext);
+                      },
+                      icon: Icon(Icons.copy_all_outlined))
+                ],
               ),
               Text(
                 "Decrypted message",
                 style: TextStyle(fontSize: 20),
               ),
               // SizedBox.fromSize(size: 10),
-              Container(
-                width: 240.0,
-                height: 35.0,
-                decoration: BoxDecoration(
-                  // borderRadius: BorderRadius.circular(24.0),
-                  border: Border.symmetric(),
-                  color: const Color(0xff2c2c2c),
-                ),
-                child: SizedBox(
-                  child: Text(
-                    decryptedtext,
-                    style: TextStyle(
-                      fontFamily: 'Arial',
-                      fontSize: 20,
-                      color: Colors.white,
-                      height: 2,
+              Row(
+                children: [
+                  Container(
+                    width: 240.0,
+                    height: 35.0,
+                    decoration: BoxDecoration(
+                      // borderRadius: BorderRadius.circular(24.0),
+                      border: Border.symmetric(),
+                      color: const Color(0xff2c2c2c),
+                    ),
+                    child: SizedBox(
+                      child: Text(
+                        decryptedtext,
+                        style: TextStyle(
+                          fontFamily: 'Arial',
+                          fontSize: 20,
+                          color: Colors.white,
+                          height: 2,
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  IconButton(
+                      onPressed: () {
+                        FlutterClipboard.copy(decryptedtext);
+                      },
+                      icon: Icon(Icons.copy_all_outlined))
+                ],
               ),
 
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (ctx) {
-                        return Home_screen();
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (ctx) {
+                              return messagestoreddisp();
+                            },
+                          ),
+                        );
                       },
+                      child: Text(
+                        'Veiw stored/Add',
+                      ),
                     ),
-                  );
-                },
-                child: Text(
-                  'Go back!',
+                     IconButton(onPressed: (){
+            Navigator.of(context)
+          .push(MaterialPageRoute(builder: (ctx) => Home_screen()));
+          }, icon:Icon(Icons.arrow_back_outlined))
+                  ],
                 ),
-              )
+              ),
+             
             ],
           ),
         )));
