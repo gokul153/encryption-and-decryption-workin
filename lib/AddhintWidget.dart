@@ -17,17 +17,38 @@ class waddmessage extends StatelessWidget {
         children: [
           TextFormField(
             controller: _hintcontroller,
-            decoration:const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter the hint to remember',
-                ),
-            
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              hintText: 'Enter the hint to remember',
+            ),
           ),
-          ElevatedButton(
-            onPressed: () {
-              addonbuttonactionclick();
-            },
-            child: Text("Store and veiw"),
+          Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    addonbuttonactionclick();
+                  },
+                  child: Text("Store and veiw"),
+                ),
+                // IconButton(onPressed: () {}, icon: Icon(Icons.delete_sharp),
+                //    tooltip:"Delete ALL")
+                SizedBox(
+                  width: 8.0,
+                ),
+                ElevatedButton.icon(
+                    onPressed: () {
+                      print("delete all is intaited");
+                      deleteall();
+                    },
+                    icon: Icon(
+                      Icons.delete_sharp,
+                      color: (Color.fromARGB(255, 233, 21, 6)),
+                    ),
+                    label: Text("Delete All!"))
+              ],
+            ),
           )
         ],
       ),

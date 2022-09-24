@@ -20,10 +20,19 @@ class listveiw extends StatelessWidget {
               return ListTile(
                 title: Text(data.hint),
                 subtitle: Text(data.message),
-                trailing: IconButton(onPressed: () {
-                  
-                },icon: Icon(Icons.delete),
-                color: Colors.red,),
+                trailing: IconButton(
+                  onPressed: () {
+                    if (data.id != null) {
+                      print("delection is intiated");
+                      deletemessage(data.id!);
+                    } else {
+                      print("message id is null");
+                      //deletemessage()
+                    }
+                  },
+                  icon: Icon(Icons.delete),
+                  color: Colors.red,
+                ),
                 leading: IconButton(
                   onPressed: () {
                     /* if (data.id != 0) {
@@ -37,7 +46,6 @@ class listveiw extends StatelessWidget {
                   icon: Icon(Icons.copy),
                   color: Colors.blue,
                 ),
-                
               );
             },
             separatorBuilder: (ctx, index) {

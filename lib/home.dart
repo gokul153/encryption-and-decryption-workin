@@ -11,6 +11,7 @@ import 'package:ui/Screen_Encryption.dart';
 import 'package:ui/message_encrpt.dart';
 import "package:file_cryptor/file_cryptor.dart";
 import 'package:encrypt/encrypt.dart' as enc;
+import 'package:flutter/services.dart';
 
 //simport 'package:packageandnavigation/message_encrpt.dart'
 class Home_screen extends StatefulWidget {
@@ -22,25 +23,33 @@ class Home_screen extends StatefulWidget {
 
 class _Home_screenState extends State<Home_screen> {
   Future<bool> _onWillPop() async {
-  return (await showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: new Text('Are you sure?'),
-          content: new Text('Do you want to exit an App'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(false), //<-- SEE HERE
-              child: new Text('No'),
-            ),
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(true), // <-- SEE HERE
-              child: new Text('Yes'),
-            ),
-          ],
-        ),
-      )) ??
-      false;
-}
+    return (await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: new Text('Are you sure?'),
+            content: new Text('Do you want to exit an App'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                }, //<-- SEE HERE
+                child: new Text('No'),
+              ),
+              TextButton(
+                onPressed: () {
+                 // Navigator.of(context).pop(true);
+                  SystemNavigator.pop();
+                  //Navigator.of(context).pop(true);
+                },
+                // <-- SEE HERE
+                child: new Text('Yes'),
+              ),
+            ],
+          ),
+        )) ??
+        false;
+  }
+
   bool loading = false;
   bool _isgranted = false;
   String keyvalues = "12345678910112587413698741236987";
@@ -243,6 +252,7 @@ class _Home_screenState extends State<Home_screen> {
                       height: 50,
                       child: ElevatedButton(
                         onPressed: () {
+                          chance = 0;
                           // print("Text Encryption is started");
                           Navigator.of(context).push(
                             MaterialPageRoute(builder: (ctx) {

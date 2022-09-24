@@ -9,6 +9,7 @@ import 'package:ui/displist_message.dart';
 import 'package:ui/home.dart';
 
 String gencrypt = "";
+int chance = 0;
 
 class txtencrypt extends StatefulWidget {
   txtencrypt({Key? key}) : super(key: key);
@@ -61,6 +62,9 @@ class _txtencryptState extends State<txtencrypt> {
 
   void decrypt_mesage(int key1, String encrypttext) async {
     //decryptedtext = "";
+    //chance++;
+   // print("chance is");
+    //print(chance);
     encryptedtext = encrypttext;
     for (i = 0; i < encryptedtext.length; i++) {
       int dvalue = encryptedtext.codeUnitAt(i);
@@ -112,7 +116,6 @@ class _txtencryptState extends State<txtencrypt> {
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Enter the key to encrpt',
-                  
                 ),
               ),
               Padding(
@@ -124,6 +127,10 @@ class _txtencryptState extends State<txtencrypt> {
                         onPressed: () {
                           data = _textcontrol.text;
                           // var keyc = (int.parse(_keycontrol.text));
+                       //   if(chance>100)
+                      //    {
+
+                       //   }
                           try {
                             setState(() {
                               var keyc = (int.parse(_keycontrol.text));
@@ -165,14 +172,14 @@ class _txtencryptState extends State<txtencrypt> {
                           } catch (exception) {
                             print("enter proper keyy");
                             print("enter a key greater than 100");
-                                  const snackBar = SnackBar(
-                                    content: Text('Enter valid key in numbers'),
-                                  );
+                            const snackBar = SnackBar(
+                              content: Text('Enter valid key in numbers'),
+                            );
 
 // Find the ScaffoldMessenger in the widget tree
 // and use it to show a SnackBar.R
-                                ScaffoldMessenger.of(context)
-                                      .showSnackBar(snackBar);
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
                           }
                         },
                         icon: Icon(Icons.enhanced_encryption_rounded),
@@ -187,7 +194,14 @@ class _txtencryptState extends State<txtencrypt> {
                         padding: const EdgeInsets.all(2.0),
                         child: ElevatedButton.icon(
                           onPressed: () {
-                            decryptedtext = "";
+                             chance++;
+                              print("chance is");
+                              print(chance);
+                             decryptedtext = "";
+                            if(chance>100)
+                            {
+                              Navigator.pop(context, 'Chance Exeeded go back');
+                            }
                             //data = _textcontrol.text;
                             // var keyc = (int.parse(_keycontrol.text));
                             //   data = _keycontrol.text;
@@ -212,15 +226,15 @@ class _txtencryptState extends State<txtencrypt> {
                               });
                             } catch (exeption) {
                               print("enter proper key");
-                               print("enter a key greater than 100");
-                                  const snackBar = SnackBar(
-                                    content: Text('Enter valid key in numbers'),
-                                  );
+                              print("enter a key greater than 100");
+                              const snackBar = SnackBar(
+                                content: Text('Enter valid key in numbers'),
+                              );
 
 // Find the ScaffoldMessenger in the widget tree
 // and use it to show a SnackBar.R
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(snackBar);
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
                             }
                           },
                           icon: Icon(Icons.enhanced_encryption_rounded),
@@ -301,20 +315,32 @@ class _txtencryptState extends State<txtencrypt> {
                 ],
               ),
 
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (ctx) {
-                        return messagestoreddisp();
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (ctx) {
+                              return messagestoreddisp();
+                            },
+                          ),
+                        );
                       },
+                      child: Text(
+                        'Veiw stored/Add',
+                      ),
                     ),
-                  );
-                },
-                child: Text(
-                  'Veiw stored/Add',
+                     IconButton(onPressed: (){
+            Navigator.of(context)
+          .push(MaterialPageRoute(builder: (ctx) => Home_screen()));
+          }, icon:Icon(Icons.arrow_back_outlined))
+                  ],
                 ),
-              )
+              ),
+             
             ],
           ),
         )));
