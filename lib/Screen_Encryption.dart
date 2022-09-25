@@ -90,7 +90,7 @@ class _EncryptionPageState extends State<EncryptionPage> {
                 pat = _platformFile.name;
                 _path = _platformFile.path;
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    backgroundColor: const Color(0xff006aff),
+                    backgroundColor: Color.fromARGB(255, 30, 189, 242),
                     content: Text(
                       ' File Selected\n File path:$_path',
                       textAlign: TextAlign.center,
@@ -106,7 +106,7 @@ class _EncryptionPageState extends State<EncryptionPage> {
               }
             },
             style: ElevatedButton.styleFrom(
-              primary: Color.fromARGB(255, 30, 189, 253),
+              primary: Color.fromARGB(255, 49, 30, 253),
               shape: const StadiumBorder(),
             ),
             child: Text(
@@ -134,7 +134,7 @@ class _EncryptionPageState extends State<EncryptionPage> {
           margin: const EdgeInsets.only(bottom: 20),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              primary: Color.fromARGB(255, 30, 189, 253),
+              primary: Color.fromARGB(255, 49, 30, 253),
               shape: const StadiumBorder(),
             ),
             onPressed: () async {
@@ -177,7 +177,7 @@ class _EncryptionPageState extends State<EncryptionPage> {
                   final newFile = await saveFile(encFilepath!);
                   //final newfile1 = await saveFile1(encFilepath!);
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      backgroundColor: Color(0xff006aff),
+                      backgroundColor: Color.fromRGBO(255, 49, 30, 253),
                       content: Text(
                         ' File Encryption Success',
                         textAlign: TextAlign.center,
@@ -185,7 +185,7 @@ class _EncryptionPageState extends State<EncryptionPage> {
                             color: Colors.white, fontWeight: FontWeight.bold),
                       )));
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      backgroundColor: Color(0xff006aff),
+                      backgroundColor: Color.fromARGB(255, 3, 34, 174),
                       content: Text(
                         ' File Saved',
                         textAlign: TextAlign.center,
@@ -205,7 +205,7 @@ class _EncryptionPageState extends State<EncryptionPage> {
               }
               if (_path == null) {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    backgroundColor: Color.fromARGB(255, 30, 189, 253),
+                    backgroundColor: Color.fromARGB(255, 49, 30, 253),
                     content: Text(
                       'Please select file',
                       textAlign: TextAlign.center,
@@ -244,7 +244,7 @@ class _EncryptionPageState extends State<EncryptionPage> {
           errorText: _validate ? 'please enter password' : null,
           focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(
-                color: Color.fromARGB(255, 30, 189, 253), width: 2.0),
+                color: Color.fromARGB(255, 49, 30, 253), width: 2.0),
           ),
           enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(

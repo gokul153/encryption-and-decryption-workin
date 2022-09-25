@@ -147,7 +147,7 @@ class _Home_screenState extends State<Home_screen> {
                       fontSize: 25, fontFamily: 'Bold', color: Colors.white),
                 ),
               ),
-              backgroundColor: Color.fromARGB(255, 30, 189, 253),
+              backgroundColor: Color.fromARGB(255, 49, 30, 253),
             ),
             // body: Body_shape(),
             body: SafeArea(
@@ -162,7 +162,7 @@ class _Home_screenState extends State<Home_screen> {
                       "",
                       textAlign: TextAlign.left,
                       style: TextStyle(
-                        color: Color.fromARGB(255, 30, 189, 253),
+                        color: Color.fromARGB(255, 49, 30, 253),
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
                       ),
@@ -226,6 +226,10 @@ class _Home_screenState extends State<Home_screen> {
                                     }),
                                   );
                                 },
+                                style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              Color.fromARGB(255, 49, 30, 253)),
+                        ),
                                 child: Text('Encrypt File'),
                               ),
                             ),
@@ -245,6 +249,10 @@ class _Home_screenState extends State<Home_screen> {
                               }),
                             );
                           },
+                          style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              Color.fromARGB(255, 49, 30, 253)),
+                        ),
                           child: Text("Decrypt file ")),
                     ),
                     SizedBox(
@@ -262,12 +270,12 @@ class _Home_screenState extends State<Home_screen> {
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(
-                              Color.fromARGB(255, 255, 255, 255)),
+                              Color.fromARGB(255, 49, 30, 253)),
                         ),
                         child: Text(
                           "Message Encryption",
                           style: TextStyle(
-                            color: Color.fromARGB(255, 30, 189, 253),
+                            color: Color.fromARGB(255, 242, 242, 242),
                           ),
                         ),
                       ),

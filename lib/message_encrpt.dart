@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ui';
 
 import 'package:clipboard/clipboard.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
@@ -85,7 +86,10 @@ class _txtencryptState extends State<txtencrypt> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("Message or Text Encryption")),
+        appBar: AppBar(title: Text("Message or Text Encryption"),
+      //  backgroundColor: Color(255, 49, 30, 253),
+        backgroundColor: Color.fromARGB(255, 49, 30, 253),
+       ),
         body: SafeArea(
             child: Container(
           child: Column(
@@ -95,16 +99,27 @@ class _txtencryptState extends State<txtencrypt> {
                 controller: _textcontrol,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
+                  focusedBorder: const OutlineInputBorder(
+            borderSide: BorderSide(
+                color: Color.fromARGB(255, 49, 30, 253), width: 2.0),
+          ),
+          enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: Color.fromARGB(255, 30, 189, 253), width: 1.5)),
                   hintText:
                       'Enter the message to be encrypted/decrypted in alphabets ',
                 ),
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   const Text(
+                    
                     "Enter the Key  ",
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 30, 189, 253)
+                    ),
                     textAlign: TextAlign.left,
                   ),
                 ],
@@ -115,15 +130,28 @@ class _txtencryptState extends State<txtencrypt> {
                 obscureText: true,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Enter the key to encrpt',
+                  focusedBorder: const OutlineInputBorder(
+            borderSide: BorderSide(
+                color: Color.fromARGB(255, 49, 30, 253), width: 2.0),
+          ),
+          enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: Color.fromARGB(255, 30, 189, 253), width: 1.5)),
+                  hintText: 'Enter the key to encrypt',
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                
+                padding: const EdgeInsets.all(5.0),
                 child: Center(
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+              primary: Color.fromARGB(255, 49, 30, 253),
+              shape: const StadiumBorder(),
+            ),
                         onPressed: () {
                           data = _textcontrol.text;
                           // var keyc = (int.parse(_keycontrol.text));
@@ -182,7 +210,8 @@ class _txtencryptState extends State<txtencrypt> {
                                 .showSnackBar(snackBar);
                           }
                         },
-                        icon: Icon(Icons.enhanced_encryption_rounded),
+                        icon: Icon(Icons.enhanced_encryption_rounded,
+                        color: Color.fromARGB(255, 182, 190, 193),),
                         label: Text(
                           "Encrypt",
                         ),
@@ -193,6 +222,11 @@ class _txtencryptState extends State<txtencrypt> {
                       Padding(
                         padding: const EdgeInsets.all(2.0),
                         child: ElevatedButton.icon(
+                            
+                            style: ElevatedButton.styleFrom(
+              primary: Color.fromARGB(255, 49, 30, 253),
+              shape: const StadiumBorder(),
+            ),
                           onPressed: () {
                              chance++;
                               print("chance is");
@@ -246,29 +280,43 @@ class _txtencryptState extends State<txtencrypt> {
                 ),
               ),
 
-              SizedBox(height: 5),
-              Text(
-                "encypted message",
-                style: TextStyle(fontSize: 20),
+              SizedBox(height: 2),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    
+                    "Encrypted message",
+                    style: TextStyle(fontSize: 20,
+                    color: Color.fromARGB(255, 30, 189, 253))
+                    ,
+                    
+                  ),
+                ],
               ),
               Row(
                 children: [
-                  Container(
-                    width: 240.0,
-                    height: 35.0,
-                    decoration: BoxDecoration(
-                      // borderRadius: BorderRadius.circular(24.0),
-                      border: Border.symmetric(),
-                      color: const Color(0xff2c2c2c),
-                    ),
-                    child: SizedBox(
-                      child: Text(
-                        encryptedtext,
-                        style: TextStyle(
-                          fontFamily: 'Arial',
-                          fontSize: 20,
-                          color: Colors.white,
-                          height: 2,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                    child: Container(
+                      
+                      width: 300.0,
+                      height: 35.0,
+                      decoration: BoxDecoration(
+                        
+                        // borderRadius: BorderRadius.circular(24.0),
+                        border: Border.symmetric(),
+                        color: Color.fromARGB(255, 49, 30, 253),
+                      ),
+                      child: SizedBox(
+                        child: Text(
+                          encryptedtext,
+                          style: TextStyle(
+                            fontFamily: 'Arial',
+                            fontSize: 20,
+                            color: Colors.white,
+                            height: 2,
+                          ),
                         ),
                       ),
                     ),
@@ -280,29 +328,39 @@ class _txtencryptState extends State<txtencrypt> {
                       icon: Icon(Icons.copy_all_outlined))
                 ],
               ),
-              Text(
-                "Decrypted message",
-                style: TextStyle(fontSize: 20),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Decrypted message",
+                    style: TextStyle(fontSize: 20,
+                    color: Color.fromARGB(255, 30, 189, 253),
+                    ),
+                  ),
+                ],
               ),
               // SizedBox.fromSize(size: 10),
               Row(
                 children: [
-                  Container(
-                    width: 240.0,
-                    height: 35.0,
-                    decoration: BoxDecoration(
-                      // borderRadius: BorderRadius.circular(24.0),
-                      border: Border.symmetric(),
-                      color: const Color(0xff2c2c2c),
-                    ),
-                    child: SizedBox(
-                      child: Text(
-                        decryptedtext,
-                        style: TextStyle(
-                          fontFamily: 'Arial',
-                          fontSize: 20,
-                          color: Colors.white,
-                          height: 2,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                    child: Container(
+                      width: 300.0,
+                      height: 35.0,
+                      decoration: BoxDecoration(
+                        // borderRadius: BorderRadius.circular(24.0),
+                        border: Border.symmetric(),
+                        color:  Color.fromARGB(255, 49, 30, 253),
+                      ),
+                      child: SizedBox(
+                        child: Text(
+                          decryptedtext,
+                          style: TextStyle(
+                            fontFamily: 'Arial',
+                            fontSize: 20,
+                            color: Colors.white,
+                            height: 2,
+                          ),
                         ),
                       ),
                     ),
@@ -320,6 +378,10 @@ class _txtencryptState extends State<txtencrypt> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
+                       style: ElevatedButton.styleFrom(
+              primary: Color.fromARGB(255, 49, 30, 253),
+              shape: const StadiumBorder(),
+            ),
                       onPressed: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
