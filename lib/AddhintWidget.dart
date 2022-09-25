@@ -22,11 +22,19 @@ class waddmessage extends StatelessWidget {
               hintText: 'Enter the hint to remember',
             ),
           ),
+          SizedBox(
+          height: 5.0,
+          width: 300.0,
+          ),
           Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
+                   style: ElevatedButton.styleFrom(
+              primary: Color.fromARGB(255, 49, 30, 253),
+              shape: const StadiumBorder(),
+            ),
                   onPressed: () {
                     addonbuttonactionclick();
                   },
@@ -38,6 +46,10 @@ class waddmessage extends StatelessWidget {
                   width: 8.0,
                 ),
                 ElevatedButton.icon(
+                   style: ElevatedButton.styleFrom(
+              primary: Color.fromARGB(255, 49, 30, 253),
+              shape: const StadiumBorder(),
+            ),
                     onPressed: () {
                       print("delete all is intaited");
                       deleteall();
@@ -65,8 +77,9 @@ class waddmessage extends StatelessWidget {
       return;
     }
     // print("$message,$_hint");
-    final model = messagemodel(message: message, hint: _hint);
+    //final model = messagemodel(message: message, hint: _hint);
     _id = _id + 1;
+    final model = messagemodel(message: message, hint: _hint,id: _id);
     addmessage(model);
   }
 }

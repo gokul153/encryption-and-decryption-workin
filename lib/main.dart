@@ -10,6 +10,7 @@ Future<void> main() async {
   if (!Hive.isAdapterRegistered(messagemodelAdapter().typeId)) {
     Hive.registerAdapter(messagemodelAdapter());
   }
+  Hive.openBox("message_box");
   runApp(const MyApp());
 }
 
@@ -21,9 +22,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "KRYPT IT!",
       theme: ThemeData(
+        
         backgroundColor: Color.fromARGB(255, 3, 34, 174),
         fontFamily: 'Georgia',
       ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+      ),
+      themeMode: ThemeMode.dark,
       home: Splash(),
     );
   }

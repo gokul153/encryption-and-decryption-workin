@@ -92,7 +92,7 @@ class _decryptionPageState extends State<decryptionPage> {
           errorText: _validate ? 'please enter password' : null,
           focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(
-                color: Color.fromARGB(255, 30, 189, 253), width: 2.0),
+                color: Color.fromARGB(255, 49, 30, 253), width: 2.0),
           ),
           enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(
@@ -114,7 +114,7 @@ class _decryptionPageState extends State<decryptionPage> {
           errorText: _validate ? 'Please enter file name' : null,
           focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(
-                color: Color.fromARGB(255, 30, 189, 253), width: 2.0),
+                color: Color.fromARGB(255, 49, 30, 253), width: 2.0),
           ),
           enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(
@@ -144,17 +144,17 @@ class _decryptionPageState extends State<decryptionPage> {
                 print(_pathpic);
                 count = 1;
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    backgroundColor: Color(0xff006aff),
+                    backgroundColor: Color.fromARGB(255, 49, 30, 253),
                     content: Text(' File Selected')));
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    backgroundColor: Color.fromARGB(255, 30, 189, 253),
+                    backgroundColor: Color.fromARGB(255, 49, 30, 253),
                     content: Text(' File not Selected.Abort')));
                 print("abort");
               }
             },
             style: ElevatedButton.styleFrom(
-              primary: Color.fromARGB(255, 30, 189, 253),
+              primary: Color.fromARGB(255, 49, 30, 253),
               shape: const StadiumBorder(),
             ),
             child: Text(
@@ -181,7 +181,7 @@ class _decryptionPageState extends State<decryptionPage> {
           margin: const EdgeInsets.only(bottom: 20),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              primary: Color.fromARGB(255, 30, 189, 253),
+              primary: Color.fromARGB(255, 49, 30, 253),
               shape: const StadiumBorder(),
             ),
             onPressed: () async {
@@ -227,7 +227,7 @@ class _decryptionPageState extends State<decryptionPage> {
                     // print(newfile1);
 
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        backgroundColor: Color(0xff006aff),
+                        backgroundColor: Color.fromARGB(255, 49, 30, 253),
                         content: Text(
                           ' File Saved',
                           textAlign: TextAlign.center,
@@ -252,7 +252,7 @@ class _decryptionPageState extends State<decryptionPage> {
                 } catch (e) {
                   print('The decryption has been completed unsuccessfully.');
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      backgroundColor: Color.fromARGB(255, 30, 189, 253),
+                      backgroundColor: Color.fromARGB(255, 49, 30, 253),
                       content: Text(
                         ' Decryption unsuccessfull! please enter valid password',
                         textAlign: TextAlign.center,
@@ -264,7 +264,7 @@ class _decryptionPageState extends State<decryptionPage> {
               }
               if (_pathpic == null) {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    backgroundColor: Color.fromARGB(255, 30, 189, 253),
+                    backgroundColor: Color.fromARGB(255, 49, 30, 253),
                     content: Text(
                       'Please select file',
                       textAlign: TextAlign.center,

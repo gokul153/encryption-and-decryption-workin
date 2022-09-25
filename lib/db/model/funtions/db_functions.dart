@@ -11,7 +11,7 @@ Future<void> addmessage(messagemodel value) async {
   int _id = await messageDB.add(value);
   print("returned id is $_id");
   value.id = _id;
-
+  
   print(value.toString());
   messagelistnotifier.notifyListeners();
 }
