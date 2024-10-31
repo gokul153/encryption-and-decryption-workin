@@ -1,7 +1,7 @@
 # ui
 
-SecureVault: File, Text, and Image Encryption App
-SecureVault is a Flutter application designed to provide users with secure encryption for files, text, and images. Utilizing a unique custom encryption logic and logical mapping, this app offers a robust layer of privacy, making it ideal as a password wallet and encryption tool.
+Kript IT !: File, Text, and Image Encryption App
+Kript IT ! is a Flutter application designed to provide users with secure encryption for files, text, and images. Utilizing a unique custom encryption logic and logical mapping, this app offers a robust layer of privacy, making it ideal as a password wallet and encryption tool.
 
 Features
 File Encryption: Securely encrypt and decrypt files, ensuring sensitive data remains private.
