@@ -1,6 +1,13 @@
 # ui
 
-A new Flutter flutter app that concerterates on encryption of file as well as text images using flutter itself. Used our own logic to produce the encyption for text encryption and updated the same using logical mapping . That enables the user to use this app as password wallect
+SecureVault: File, Text, and Image Encryption App
+SecureVault is a Flutter application designed to provide users with secure encryption for files, text, and images. Utilizing a unique custom encryption logic and logical mapping, this app offers a robust layer of privacy, making it ideal as a password wallet and encryption tool.
+
+Features
+File Encryption: Securely encrypt and decrypt files, ensuring sensitive data remains private.
+Text Encryption: Encrypt text messages using a custom encryption logic, protecting personal information.
+Image Encryption: Encrypt image files to safeguard image-based data.
+Password Wallet: Stores and encrypts passwords for easy and secure management.
 
 ## Getting Started
 
