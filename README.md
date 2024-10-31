@@ -1,6 +1,6 @@
 # ui
 
-A new Flutter project.
+A new Flutter flutter app that concerterates on encryption of file as well as text images using flutter itself. Used our own logic to produce the encyption for text encryption and updated the same using logical mapping . That enables the user to use this app as password wallect
 
 ## Getting Started
 
